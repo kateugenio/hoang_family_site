@@ -11,8 +11,8 @@ Hoang Family Website
 * Ruby 2.6.6
 * PostgreSQL 10.3
 ```
-git clone https://github.com/kateugenio/bucket_list.git
-cd budgetbucket
+git clone https://github.com/kateugenio/hoang_family_site.git
+cd hoang_family_site
 bundle install
 ```
 
