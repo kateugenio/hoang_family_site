@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Hoang Family Website</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to "Home", root_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Family Tree</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Recipes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Photos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Messages</a>
+      </li>
+      <li class="nav-item">
+        <% if current_user && current_user.admin? %>
+          <%= link_to "Users", users_path(approved: false), class: "nav-link" %>
+        <% end %>
+      </li>
+    </ul>
+    <% if current_user %>
+      <span class="navbar-text">
+        <%= link_to 'Log out', destroy_user_session_path, class: 'btn btn-dark text-white', method: :delete %>
+      </span>
+    <% end %>
+  </div>
+</nav>
