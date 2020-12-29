@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   # Users Controller
   get 'users', to: 'users#index'
   post 'users/:id/approve', to: 'users#approve_as_admin', as: :approve_as_admin
+
+  resources :recipes
 end

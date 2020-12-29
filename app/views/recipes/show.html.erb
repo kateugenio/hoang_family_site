@@ -1,0 +1,43 @@
+<div class="row my-5">
+  <div class="col-lg-2"></div>
+
+  <div class="col-lg-8">
+    <%= link_to "Back to Recipes", recipes_path, class: "btn btn-link" %>
+    <div class="jumbotron jumbotron-fluid text-center">
+      <div class="container">
+        <h1 class="display-4"><%= @recipe.name %></h1>
+        <span class="badge badge-primary mx-2"><%= @recipe.category %></span>
+        <% if @recipe.serving_size %>
+          <span class="badge badge-warning mx-2">Servings: <%= @recipe.serving_size %></span>
+        <% end %>
+        <% if @recipe.total_cook_time %>
+          <span class="badge badge-info mx-2">Total Cook Time (Minutes): <%= @recipe.total_cook_time %></span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Ingredients
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <%= raw @recipe.ingredients %>
+        </p>
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-header">
+        Directions
+      </div>
+      <div class="card-body">
+        <p class="card-text">
+          <%= raw @recipe.directions %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-2"></div>
+</div>
