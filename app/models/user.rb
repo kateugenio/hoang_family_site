@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   after_create :send_admin_mail
 
+  has_many :recipes, dependent: :destroy
+
   def active_for_authentication?
     super && approved?
   end

@@ -31,3 +31,21 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        recipe:
+          attributes:
+            name:
+              blank: "Name cannot be blank"
+            ingredients:
+              blank: "Must provide ingredients list"
+            directions:
+              blank: "Must provide directions"
+            :serving_size:
+              not_a_number: "Serving size must be a number"
+            :total_cook_time:
+              not_a_number: "Total cook time must be a number"
+            :category:
+              blank: "Please select a category"
+              inclusion: "Please select a valid category"

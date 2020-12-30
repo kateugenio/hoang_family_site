@@ -1,0 +1,33 @@
+<div class="row my-5">
+  <div class="col-lg-2"></div>
+
+  <div class="col-lg-8">
+    <%= bootstrap_flash %>
+    <h1 class="text-center">Recipes</h1>
+
+    <%= link_to "Add New Recipe", new_recipe_path, class: "btn btn-primary float-right" %>
+
+    <table class="table table-sm table-hover mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Recipe</th>
+          <th scope="col">Submitted By</th>
+          <th scope="col">Category</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recipes.each do |recipe| %>
+          <tr>
+            <td><%= recipe.name %></td>
+            <td><%= recipe.user.full_name %></td>
+            <td><span class="badge badge-info"><%= recipe.category %></span></td>
+            <td><%= link_to "View", recipe_path(recipe), class: "btn btn-dark" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-lg-2"></div>
+</div>
