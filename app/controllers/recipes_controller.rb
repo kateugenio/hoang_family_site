@@ -13,6 +13,7 @@ class RecipesController < ApplicationController
     @recipe = Recipe.find(params[:id])
   end
 
+  # rubocop: disable Metrics/AbcSize
   def create
     @recipe = @user.recipes.new(recipe_params)
 
@@ -24,6 +25,7 @@ class RecipesController < ApplicationController
       render :new
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   private
 

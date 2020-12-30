@@ -22,7 +22,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">
-          <%= raw @recipe.ingredients %>
+          <%= sanitize @recipe.ingredients %>
         </p>
       </div>
     </div>
@@ -33,7 +33,7 @@
       </div>
       <div class="card-body">
         <p class="card-text">
-          <%= raw @recipe.directions %>
+          <%= sanitize @recipe.directions %>
         </p>
       </div>
     </div>
