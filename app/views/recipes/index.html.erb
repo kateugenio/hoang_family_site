@@ -22,7 +22,15 @@
             <td><%= recipe.name %></td>
             <td><%= recipe.user.full_name %></td>
             <td><span class="badge badge-info"><%= recipe.category %></span></td>
-            <td><%= link_to "View", recipe_path(recipe), class: "btn btn-dark" %></td>
+            <td colspan="3">
+              <%= link_to "View", recipe_path(recipe), class: "btn btn-dark" %>
+              <% if can? :update, recipe %>
+                <%= link_to "Edit", edit_recipe_path(recipe), class: "btn btn-warning" %>
+              <% end %>
+              <% if can? :destroy, recipe %>
+                <%= link_to "Delete", recipe_path(recipe), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
