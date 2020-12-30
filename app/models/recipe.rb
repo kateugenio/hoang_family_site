@@ -15,6 +15,6 @@ class Recipe < ApplicationRecord
   ].freeze
 
   validates :name, :ingredients, :directions, :category, presence: true
-  # validates :serving_size, :total_cook_time, numericality: { greater_than: 0 }
+  validates :serving_size, :total_cook_time, numericality: { greater_than: 0 }, allow_blank: true
   validates :category, inclusion: { in: CATEGORIES }
 end
