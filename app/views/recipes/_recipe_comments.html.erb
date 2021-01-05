@@ -1,0 +1,19 @@
+<div class="card card-white post my-4">
+  <div class="post-heading">
+    <div class="float-left image">
+      <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+    </div>
+    <div class="float-left meta">
+      <div class="title h5">
+        <p><strong><%= comment.user.full_name %></strong> made a post.</p>
+      </div>
+      <h6 class="text-muted time font-weight-lighter"><%= time_ago_in_words(comment.created_at) %> ago</h6>
+    </div>
+  </div> 
+  <div class="post-description mt-2"> 
+    <p class="font-weight-light"><%= comment.comment %></p>
+  </div>
+  <% if can? :destroy, comment %>
+    <%= link_to "Delete Comment", recipe_comment_destroy_path(@recipe, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "font-weight-light text-danger", style: "font-size: 10px" %>
+  <% end %>
+</div>
