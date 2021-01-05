@@ -8,5 +8,9 @@ Rails.application.routes.draw do
   get 'users', to: 'users#index'
   post 'users/:id/approve', to: 'users#approve_as_admin', as: :approve_as_admin
 
-  resources :recipes
+  # Recipes Controller
+  resources :recipes do
+    post '/comments', to: 'recipe_comments#create'
+    delete '/comments/:id', to: 'recipe_comments#destroy', as: :comment_destroy
+  end
 end
