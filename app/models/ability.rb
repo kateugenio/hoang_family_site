@@ -12,6 +12,7 @@ class Ability
       can :manage, :all
     else
       can [:update, :destroy], Recipe, user_id: @user.id
+      can [:destroy], Comment, user_id: @user.id
     end
   end
 end
