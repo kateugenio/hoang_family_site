@@ -1,6 +1,7 @@
 class RecipeCommentsController < ApplicationController
   before_action :set_user
 
+  # POST /recipes/:recipe_id/comments
   def create
     @recipe = Recipe.find(params[:recipe_id])
     @comment = @recipe.comments.new(comment_params)
@@ -10,6 +11,7 @@ class RecipeCommentsController < ApplicationController
     flash.now[:error] = "Please submit a comment."
   end
 
+  # DELETE /recipes/:recipe_id/comments/:id
   def destroy
     @comment = Comment.find(params[:id])
     authorize! :destroy, @comment
