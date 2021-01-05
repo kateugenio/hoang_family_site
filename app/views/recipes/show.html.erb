@@ -1,11 +1,10 @@
 <div class="row my-5">
-  <div class="col-lg-2"></div>
-
   <div class="col-lg-8">
     <%= link_to "Back to Recipes", recipes_path, class: "btn btn-link" %>
     <div class="jumbotron jumbotron-fluid text-center">
       <div class="container">
         <h1 class="display-4"><%= @recipe.name %></h1>
+        <p class="text-muted">By: <%= @recipe.user.full_name %></p>
         <span class="badge badge-primary mx-2"><%= @recipe.category %></span>
         <% if @recipe.serving_size %>
           <span class="badge badge-warning mx-2">Servings: <%= @recipe.serving_size %></span>
@@ -17,10 +16,10 @@
     </div>
 
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-info">
         Ingredients
       </div>
-      <div class="card-body">
+      <div class="card-body bg-dark text-white">
         <p class="card-text">
           <%= sanitize @recipe.ingredients %>
         </p>
@@ -28,10 +27,10 @@
     </div>
 
     <div class="card mt-3">
-      <div class="card-header">
+      <div class="card-header bg-info">
         Directions
       </div>
-      <div class="card-body">
+      <div class="card-body bg-dark text-white">
         <p class="card-text">
           <%= sanitize @recipe.directions %>
         </p>
@@ -39,5 +38,34 @@
     </div>
   </div>
 
-  <div class="col-lg-2"></div>
+  <div class="col-lg-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 mt-3">
+          <h1>Comments</h1>
+          <div class="error-msg"></div>
+          <%= form_with model: @recipe.comments, url: recipe_comments_path(@recipe) do |form| %>
+            <%= form.hidden_field :user_id, value: @user.id %>
+            <div class="form-group">
+              <%= form.text_area :comment, class: "form-control", placeholder: "Add new comment..." %>
+            </div>
+            <div class="text-right mb-3">
+              <%= form.submit "Add comment", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+
+          <hr>
+
+          <div id="recipe-comments">
+            <div id="recipe-comment">
+              <% @recipe.comments.order(created_at: :desc).each do |comment| %>
+                <%= render partial: "recipe_comments", locals: { comment: comment } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+              
+      </div>
+    </div>
+  </div>
 </div>
