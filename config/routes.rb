@@ -13,4 +13,7 @@ Rails.application.routes.draw do
     post '/comments', to: 'recipe_comments#create'
     delete '/comments/:id', to: 'recipe_comments#destroy', as: :comment_destroy
   end
+
+  # PhotoAlbums Controller
+  resources :photo_albums
 end
