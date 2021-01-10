@@ -49,3 +49,7 @@ en:
             :category:
               blank: "Please select a category"
               inclusion: "Please select a valid category"
+        photo_album:
+          attributes:
+            name:
+              blank: "Name cannot be blank"
