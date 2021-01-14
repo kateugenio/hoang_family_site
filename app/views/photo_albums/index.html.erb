@@ -6,12 +6,12 @@
     <div class="d-flex justify-content-between text-right">
       <div class="dropdown">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= filtered_by(@users_with_albums) %>
+          <%= filtered_by(@users_with_albums, params) %>
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <%= link_to "All Albums", photo_albums_path, class: "dropdown-item" %>
-          <%= link_to "My Albums", photo_albums_path(my_albums: true), class: "dropdown-item" %>
+          <%= link_to "My Albums", photo_albums_path(album: 'current_user'), class: "dropdown-item" %>
           <% @users_with_albums.each do |user_album| %>
             <%= link_to user_album[:name], photo_albums_path(user: user_album[:id]), class: "dropdown-item" %>
           <% end %>

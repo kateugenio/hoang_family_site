@@ -2,7 +2,7 @@ class PhotoAlbumsController < ApplicationController
   before_action :set_user
 
   def index
-    @photo_albums = if params[:my_albums]
+    @photo_albums = if params[:album] == 'current_user'
                       @user.photo_albums.all
                     elsif params[:user]
                       user = User.find(params[:user])
@@ -10,9 +10,7 @@ class PhotoAlbumsController < ApplicationController
                     else
                       PhotoAlbum.all
                     end
-    @users_with_albums = PhotoAlbum.includes(:user).all.map { |pa| { id: pa.user.id, name: pa.user.full_name } }
-      .uniq!
-      .select { |pa| pa[:id] != @user.id }
+    @users_with_albums = PhotoAlbum.filtered_users(@user)
   end
 
   def new
@@ -27,6 +25,7 @@ class PhotoAlbumsController < ApplicationController
     @photo_album = PhotoAlbum.find(params[:id])
   end
 
+  # rubocop: disable Metrics/AbcSize
   def create
     @photo_album = @user.photo_albums.new(photo_album_params)
 
@@ -38,9 +37,11 @@ class PhotoAlbumsController < ApplicationController
       render :new
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
+  # rubocop: disable Metrics/AbcSize
   def update
-    @photo_album = @user.photo_albums.find(params[:id])
+    @photo_album = PhotoAlbum.find(params[:id])
     authorize! :update, @photo_album
 
     if @photo_album.update(photo_album_params)
@@ -51,6 +52,7 @@ class PhotoAlbumsController < ApplicationController
       render :edit
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   private
 
