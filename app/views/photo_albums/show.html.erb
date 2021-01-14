@@ -1,0 +1,22 @@
+<div class="row my-5">
+  <div class="col">
+    <%= bootstrap_flash %>
+    <%= link_to "Back to Photos", photo_albums_path, class: "btn btn-link" %>
+    <h1 class="text-center"><%= @photo_album.name %></h1>
+    <h5 class="text-center"><%= @photo_album.description %></h5>
+
+    <section id="gallery" class="gallery">
+      <div class="container">
+        <div class="row gallery-container">
+          <% @photo_album.images.each do |image| %>
+            <div class="col-lg-4 col-md-6 gallery-item">
+              <div class="gallery-wrap">
+                <%= image_tag(image, class: "img-fluid") %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
