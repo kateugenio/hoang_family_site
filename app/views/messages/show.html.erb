@@ -1,0 +1,17 @@
+<div class="row my-5">
+  <div class="col-lg-8">
+    <% if can? :update, @message %>
+      <%= link_to "Edit Message", edit_message_path(@message), class: "btn btn-warning" %>
+    <% end %>
+    <% if can? :destroy, @message %>
+      <%= link_to "Delete Message", message_path(@message), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
+    <% end %>
+
+    <h1><%= @message.subject %></h1>
+    <small>Posted by: <%= @message.user.full_name %></small>
+
+    <div class="mt-4">
+      <%= sanitize @message.body %>
+    </div>
+  </div>
+</div>

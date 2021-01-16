@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :recipes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :photo_albums, dependent: :destroy
+  has_many :messages, dependent: :destroy
 
   def active_for_authentication?
     super && approved?

@@ -53,3 +53,9 @@ en:
           attributes:
             name:
               blank: "Name cannot be blank"
+        message:
+          attributes:
+            subject:
+              blank: "Subject cannot be blank"
+            body:
+              blank: "Message body cannot be blank"
