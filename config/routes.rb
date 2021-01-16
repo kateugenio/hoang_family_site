@@ -16,4 +16,7 @@ Rails.application.routes.draw do
 
   # PhotoAlbums Controller
   resources :photo_albums
+
+  # Messages Controller
+  resources :messages
 end
