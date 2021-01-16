@@ -1,0 +1,60 @@
+<div class="row my-5">
+  <div class="col-lg-12">
+    <%= bootstrap_flash %>
+    <h1 class="text-center">Messages</h1>
+
+    <div class="container-fluid mt-100">
+      <div class="d-flex flex-wrap justify-content-between">
+        <div>
+          <%= link_to "New Message", new_message_path, class: "btn btn-shadow btn-wide btn-primary" %>
+        </div>
+        <div class="col-12 col-md-3 p-0 mb-3"> <input type="text" class="form-control" placeholder="Search..."> </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header pl-0 pr-0">
+          <div class="row no-gutters w-100 align-items-center">
+            <div class="col ml-3">Topics</div>
+            <div class="col-4 text-muted">
+              <div class="row no-gutters align-items-center">
+                <div class="col-4">Replies</div>
+                  <div class="col-8">Posted by</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <% @messages.each do |message| %>
+          <div class="card-body py-3">
+            <div class="row no-gutters align-items-center">
+              <div class="col">
+                <%= link_to message.subject, message_path(message), class: "text-big" %>
+                <div class="text-muted small mt-1"><%= time_ago_in_words(message.created_at) %> ago</div>
+              </div>
+              <div class="d-none d-md-block col-4">
+                <div class="row no-gutters align-items-center">
+                  <div class="col-4">12</div>
+                  <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
+                    <div class="media-body flex-truncate ml-2">
+                      <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true"><%= message.user.full_name %></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="m-0">
+        <% end %>
+      </div>
+
+      <nav>
+        <ul class="pagination mb-5">
+          <li class="page-item disabled"><a class="page-link" href="javascript:void(0)" data-abc="true">«</a></li>
+          <li class="page-item active"><a class="page-link" href="javascript:void(0)" data-abc="true">1</a></li>
+          <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">2</a></li>
+          <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">3</a></li>
+          <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">»</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
