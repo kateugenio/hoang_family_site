@@ -14,6 +14,7 @@ class Ability
       can [:update, :destroy], Recipe, user_id: @user.id
       can [:destroy], Comment, user_id: @user.id
       can [:update, :destroy], PhotoAlbum, user_id: @user.id
+      can [:update, :destroy], Message, user_id: @user.id
     end
   end
 end
