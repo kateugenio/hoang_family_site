@@ -1,17 +1,45 @@
-<div class="row my-5">
-  <div class="col-lg-8">
-    <% if can? :update, @message %>
-      <%= link_to "Edit Message", edit_message_path(@message), class: "btn btn-warning" %>
-    <% end %>
-    <% if can? :destroy, @message %>
-      <%= link_to "Delete Message", message_path(@message), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
-    <% end %>
-
-    <h1><%= @message.subject %></h1>
-    <small>Posted by: <%= @message.user.full_name %></small>
-
-    <div class="mt-4">
-      <%= sanitize @message.body %>
+<div class="row my-5 justify-content-center">
+  <div class="col-lg-10">
+    <div class="text-right">
+      <% if can? :update, @message %>
+        <%= link_to "Edit Message", edit_message_path(@message), class: "btn btn-warning" %>
+      <% end %>
+      <% if can? :destroy, @message %>
+        <%= link_to "Delete Message", message_path(@message), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
+      <% end %>
     </div>
+
+    <div class="card mt-3">
+      <div class="card-header">
+        <%= @message.subject %>
+      </div>
+      <div class="card-body">
+        <p class="text-muted">Posted By: <%= @message.user.full_name %></p>
+        <p class="card-text"><%= sanitize @message.body %></p>
+      </div>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+      <h6 class="border-bottom border-gray pb-2 mb-0">Replies</h6>
+      <div class="message-comment">
+        <% @message.comments.order(created_at: :asc).each do |comment| %>
+          <%= render partial: "message_comment", locals: { comment: comment } %>
+        <% end %>
+      </div>
+    </div>
+
+    <div id="message-comments-create">
+      <div class="error-msg"></div>
+      <%= form_with model: @message.comments, url: message_comments_path(@message) do |form| %>
+        <%= form.hidden_field :user_id, value: @user.id %>
+        <div class="form-group">
+          <%= form.text_area :comment, class: "form-control", placeholder: "Add new comment..." %>
+        </div>
+        <div class="text-right mb-3">
+          <%= form.submit "Add comment", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+
   </div>
 </div>
