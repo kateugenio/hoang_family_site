@@ -1,7 +1,7 @@
 class MessageCommentsController < ApplicationController
   before_action :set_user
 
-  # POST /recipes/:recipe_id/comments
+  # POST /messages/:message_id/comments
   def create
     @message = Message.find(params[:message_id])
     @comment = @message.comments.new(comment_params)
@@ -11,7 +11,7 @@ class MessageCommentsController < ApplicationController
     flash.now[:error] = "Please submit a comment."
   end
 
-  # DELETE /recipes/:recipe_id/comments/:id
+  # DELETE /messages/:message_id/comments/:id
   def destroy
     @comment = Comment.find(params[:id])
     authorize! :destroy, @comment
