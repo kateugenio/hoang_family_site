@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
 
   # GET /messages
   def index
-    @messages = Message.includes(:user).all.order(created_at: :desc)
+    @messages = Message.includes(:comments, :user).all.order(created_at: :desc)
   end
 
   # GET /messages/new
@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/:id
   def show
-    @message = Message.includes(:user).find(params[:id])
+    @message = Message.includes(:comments, :user).find(params[:id])
   end
 
   # GET /messages/:id/edit
