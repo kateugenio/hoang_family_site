@@ -18,5 +18,8 @@ Rails.application.routes.draw do
   resources :photo_albums
 
   # Messages Controller
-  resources :messages
+  resources :messages do
+    post '/comments', to: 'message_comments#create'
+    delete '/comments/:id', to: 'message_comments#destroy', as: :comment_destroy
+  end
 end
