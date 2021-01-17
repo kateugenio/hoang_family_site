@@ -1,0 +1,6 @@
+<% if @error %>
+  $(".error-msg").append("<%= escape_javascript(bootstrap_flash) %>");
+<% else %>
+  $('.message-comment').append("<%= j render partial: 'messages/message_comment', locals: { comment: @comment } %>");
+  $('form')[0].reset();
+<% end %>
