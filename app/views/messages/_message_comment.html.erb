@@ -1,0 +1,12 @@
+<div class="media text-muted pt-3">
+  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="mr-2 rounded" width="32" height="32">
+  <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+    <strong class="d-block text-gray-dark"><%= comment.user.full_name %></strong>
+    <span class="d-block font-italic text-muted mb-3"><%= time_ago_in_words(comment.created_at) %> ago</span>
+    <%= comment.comment %><br>
+    <% if can? :destroy, comment %>
+      <%= link_to 'Delete Comment', message_comment_destroy_path(@message, comment), class: "btn btn-danger btn-sm mt-4", method: :delete, data: { confirm: "Are you sure?" } %>
+    <% end %>
+  </p>
+  
+</div>
