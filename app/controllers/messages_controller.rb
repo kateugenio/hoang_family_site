@@ -23,7 +23,6 @@ class MessagesController < ApplicationController
   end
 
   # POST /messages
-  # rubocop: disable Metrics/AbcSize
   def create
     @message = @user.messages.new(message_params)
 
@@ -35,7 +34,6 @@ class MessagesController < ApplicationController
       render :new
     end
   end
-  # rubocop: enable Metrics/AbcSize
 
   # PATCH /messages/:id
   # rubocop: disable Metrics/AbcSize
