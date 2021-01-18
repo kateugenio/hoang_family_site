@@ -8,7 +8,11 @@
         <div>
           <%= link_to "New Message", new_message_path, class: "btn btn-shadow btn-wide btn-primary" %>
         </div>
-        <div class="col-12 col-md-3 p-0 mb-3"> <input type="text" class="form-control" placeholder="Search..."> </div>
+        <div class="col-12 col-md-3 p-0 mb-3">
+          <%= search_form_for @q do |f| %>
+            <%= f.search_field :subject_or_body_cont, class: "form-control", placeholder: "Search..." %>
+          <% end %>
+        </div>
       </div>
       <div class="card mb-3">
         <div class="card-header pl-0 pr-0">
