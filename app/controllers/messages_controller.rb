@@ -3,7 +3,8 @@ class MessagesController < ApplicationController
 
   # GET /messages
   def index
-    @messages = Message.includes(:comments, :user).all.order(created_at: :desc)
+    @q = Message.includes(:comments, :user).all.order(created_at: :desc).ransack(params[:q])
+    @messages = @q.result(distinct: true)
   end
 
   # GET /messages/new
