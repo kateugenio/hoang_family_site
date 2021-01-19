@@ -1,2 +1,6 @@
 <%= bootstrap_flash %>
 <h1>Hoang Family Website</h1>
+
+<% if session[:new_user_modal] == true %>
+  <%= render "new_user_welcome_modal" %>
+<% end %>

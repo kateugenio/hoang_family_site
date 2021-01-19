@@ -1,6 +1,8 @@
 class Recipe < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
+  has_rich_text :ingredients
+  has_rich_text :directions
 
   CATEGORIES = [
     'pork',

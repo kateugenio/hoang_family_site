@@ -1,7 +1,7 @@
 <div class="card card-white post my-4">
   <div class="post-heading">
     <div class="float-left image">
-      <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+      <%= default_or_uploaded_avatar(comment.user, 70, 70) %>
     </div>
     <div class="float-left meta">
       <div class="title h5">

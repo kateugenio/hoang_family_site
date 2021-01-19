@@ -25,10 +25,6 @@ gem 'jbuilder', '~> 2.7'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-# CSS Styles
-gem 'bootstrap', '~> 5.0.0.alpha3'
-gem 'jquery-rails'
-
 # Ruby Static Code Analyser
 gem 'rubocop', '~> 0.71.0', require: false
 gem 'rubocop-rails'
