@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   # Users Controller
   get 'users', to: 'users#index'
   post 'users/:id/approve', to: 'users#approve_as_admin', as: :approve_as_admin
+  patch 'users/attach_avatar', to: 'users#attach_avatar', as: :attach_avatar
+  get 'settings', to: 'users#settings', as: :settings
+  patch 'update_settings', to: 'users#update_settings', as: :update_settings
 
   # Recipes Controller
   resources :recipes do

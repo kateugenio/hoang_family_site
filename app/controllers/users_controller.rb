@@ -16,4 +16,32 @@ class UsersController < ApplicationController
     flash[:notice] = "#{@user.full_name} has been approved."
     redirect_to users_path(approved: false)
   end
+
+  # PATCH /users/attach_avatar
+  def attach_avatar
+    current_user.update(user_params)
+    redirect_to root_path
+  end
+
+  # GET /settings
+  def settings
+    @user = current_user
+  end
+
+  def update_settings
+    @user = current_user
+    if @user.update(user_params)
+      flash[:success] = "Successfully updated settings"
+      redirect_to settings_path
+    else
+      flash.now[:error] = @user.errors.messages.values.flatten.uniq
+      render :settings
+    end
+  end
+
+  private
+
+  def user_params
+    params.require(:user).permit(:avatar, :first_name, :last_name)
+  end
 end
