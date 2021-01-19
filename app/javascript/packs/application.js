@@ -3,14 +3,14 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+import 'bootstrap'
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 require("jquery")
-
-require("bootstrap")
-import 'bootstrap/dist/css/bootstrap'
+require("trix")
+require("@rails/actiontext")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -19,14 +19,14 @@ import 'bootstrap/dist/css/bootstrap'
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-$( document ).ready(function() {
-  // Enable Trumbowyg WYSIWG editor
-  // $('.trumbowyg-editor').trumbowyg();
-
+$(document).ready(function() {
+  bsCustomFileInput.init();
   // Rails will add field_with_errors class to form fields, add bootstrap's is-invalid class to highlight in red
   $('.form-control').each(function() {
     if ($(this).closest('div').hasClass('field_with_errors')) {
       $(this).addClass('is-invalid');
     }
   });
+
+  $('#welcome-modal').modal('show');
 });
