@@ -1,0 +1,30 @@
+<div class="modal fade" id="welcome-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <%= form_with model: @user, url: attach_avatar_path, method: :patch do |form| %>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Welcome to the Hoang Family Website!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Upload a profile photo</p>
+          <small>You can always do this later from your Settings page</small>
+          
+          <div class="form-group my-5">
+            <div class="custom-file">
+              <%= form.file_field :avatar, class: "custom-file-input", id: "customFile" %>
+              <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Skip, I'll do this later</button>
+          <%= form.submit "Upload", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
