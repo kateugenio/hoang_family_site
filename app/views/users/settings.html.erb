@@ -1,7 +1,7 @@
 <div class="container light-style flex-grow-1 container-p-y my-5">
   <%= bootstrap_flash %>
 
-  <%= form_with model: @user, url: update_settings_path, method: :patch do |form| %>
+  <%= form_with model: @user, url: update_settings_path, local: true, method: :patch do |form| %>
     <h4 class="font-weight-bold py-3 mb-4">
       Account settings
     </h4>

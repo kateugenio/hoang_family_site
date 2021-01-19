@@ -28,6 +28,7 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  # PATCH /users/update_settings
   def update_settings
     @user = current_user
     if @user.update(user_params)

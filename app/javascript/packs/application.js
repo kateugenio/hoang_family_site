@@ -20,7 +20,9 @@ require("@rails/actiontext")
 // const imagePath = (name) => images(name, true)
 
 $(document).ready(function() {
+  // Initiatlize Bootstraps Custom File Input: https://getbootstrap.com/docs/4.5/components/forms/#file-browser
   bsCustomFileInput.init();
+
   // Rails will add field_with_errors class to form fields, add bootstrap's is-invalid class to highlight in red
   $('.form-control').each(function() {
     if ($(this).closest('div').hasClass('field_with_errors')) {
@@ -28,5 +30,6 @@ $(document).ready(function() {
     }
   });
 
+  // New user welcome modal. This will only be triggered if user 'sign_in_count' equals 1, see DashboardController#index.
   $('#welcome-modal').modal('show');
 });
