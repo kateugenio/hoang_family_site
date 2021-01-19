@@ -34,6 +34,14 @@ en:
   activerecord:
     errors:
       models:
+        user:
+          attributes:
+            first_name:
+              blank: "First name cannot be blank"
+            last_name:
+              blank: "Last name cannot be blank"
+            email:
+              blank: "Email cannot be blank"
         recipe:
           attributes:
             name:
