@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+  before_action :verify_allowed_render_tabs, only: [:update_settings, :update_password]
+
+  ALLOWED_RENDER_TABS = [
+    'settings_general',
+    'settings_change_password',
+    'settings_info',
+    'settings_social',
+    'settings_notifications'
+  ].freeze
+
   # GET /users
   def index
     @users = if params[:approved] == "false"
@@ -34,8 +44,6 @@ class UsersController < ApplicationController
   # PATCH /users/update_settings
   def update_settings
     @user = current_user
-    @tab = params[:tab]
-
     if @user.update(user_params)
       flash[:success] = "Successfully updated settings"
       redirect_to settings_path(tab: @tab)
@@ -46,10 +54,9 @@ class UsersController < ApplicationController
   end
 
   # PATCH /users/update_password
+  # rubocop: disable Metrics/AbcSize
   def update_password
     @user = current_user
-    @tab = params[:tab]
-
     unless @user.valid_password?(params[:user][:current_password])
       flash.now[:error] = "Current password is invalid"
       return render @tab
@@ -65,6 +72,7 @@ class UsersController < ApplicationController
       render @tab
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   private
 
@@ -87,5 +95,15 @@ class UsersController < ApplicationController
 
   def change_password_params
     params.require(:user).permit(:current_password, :password, :password_confirmation)
+  end
+
+  # Brakeman Dynamic Render issue. This should protect against a user trying to access a template
+  # they shouldn't have access to.
+  def verify_allowed_render_tabs
+    @tab = params[:tab]
+
+    return if ALLOWED_RENDER_TABS.include?(@tab)
+
+    redirect_to main_app.root_url, alert: 'Invalid access'
   end
 end
