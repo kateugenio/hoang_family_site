@@ -42,6 +42,11 @@ en:
               blank: "Last name cannot be blank"
             email:
               blank: "Email cannot be blank"
+            password:
+              blank: 'Password cannot be blank'
+              too_short: 'Password is too short (minimum is 6 characters)'
+            password_confirmation:
+              confirmation: 'Password and Password Confirmation do not match'
         recipe:
           attributes:
             name:
