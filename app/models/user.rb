@@ -16,6 +16,8 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, :email, presence: true
 
+  attr_accessor :current_password
+
   def active_for_authentication?
     super && approved?
   end
