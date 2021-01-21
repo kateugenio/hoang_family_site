@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   patch 'users/attach_avatar', to: 'users#attach_avatar', as: :attach_avatar
   get 'settings', to: 'users#settings', as: :settings
   patch 'update_settings', to: 'users#update_settings', as: :update_settings
+  patch 'update_password', to: 'users#update_password', as: :update_password
 
   # Recipes Controller
   resources :recipes do
