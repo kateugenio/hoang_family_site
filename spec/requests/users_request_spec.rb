@@ -49,23 +49,63 @@ RSpec.describe "Users", type: :request do
     expect(@user.reload.avatar.attached?).to be true
   end
 
-  it 'renders settings page' do
-    # Arrange
-    sign_in @user
+  describe '#settings' do
+    before {
+      sign_in @user
+    }
 
-    # Act
-    get settings_path
+    it 'renders settings_general template by default' do
+      # Act
+      get settings_path
 
-    # Assert
-    expect(response).to render_template(:settings)
+      # Assert
+      expect(response).to render_template(:settings_general)
+    end
+
+    it 'renders settings_change_password template' do
+      # Act
+      get settings_path(tab: 'settings_change_password')
+
+      # Assert
+      expect(response).to render_template(:settings_change_password)
+    end
+
+    it 'renders settings_info template' do
+      # Act
+      get settings_path(tab: 'settings_info')
+
+      # Assert
+      expect(response).to render_template(:settings_info)
+    end
+
+    it 'renders settings_social template' do
+      # Act
+      get settings_path(tab: 'settings_social')
+
+      # Assert
+      expect(response).to render_template(:settings_social)
+    end
+
+    it 'renders settings_notifications template' do
+      # Act
+      get settings_path(tab: 'settings_notifications')
+
+      # Assert
+      expect(response).to render_template(:settings_notifications)
+    end
   end
 
   describe '#update_settings' do
-    it 'updates avatar, first_name, and last_name on settings page/general tab' do
-      # Arrange
+    before {
       sign_in @user
+    }
+
+    it 'updates avatar, first_name, and last_name on General tab' do
+      # Arrange
       photo = fixture_file_upload(file_fixture('avatar.png'))
+      tab = 'settings_general'
       params = {
+        tab: tab,
         user: {
           avatar: photo,
           first_name: 'Johnny',
@@ -77,15 +117,16 @@ RSpec.describe "Users", type: :request do
       patch update_settings_path, params: params
 
       # Assert
-      expect(response).to redirect_to(settings_path)
+      expect(response).to redirect_to(settings_path(tab: tab))
       expect(@user.reload.first_name).to eq('Johnny')
       expect(@user.reload.last_name).to eq('Appleseed')
     end
 
-    it 'renders flash error if invalid entry on settings/page general tab' do
+    it 'renders flash error if invalid entry on General tab' do
       # Arrange
-      sign_in @user
+      tab = 'settings_general'
       params = {
+        tab: tab,
         user: {
           first_name: '',
           last_name: 'Appleseed'
@@ -96,8 +137,155 @@ RSpec.describe "Users", type: :request do
       patch update_settings_path, params: params
 
       # Assert
-      expect(response).to render_template(:settings)
+      expect(response).to render_template(tab)
       expect(flash[:error]).to include 'First name cannot be blank'
+    end
+
+    it 'updates general info on Info tab' do
+      # Arrange
+      tab = 'settings_info'
+      params = {
+        tab: tab,
+        user: {
+          bio: 'a bio about me',
+          location: 'Los Angeles, CA',
+          occupation: 'Teacher'
+        }
+      }
+
+      # Act
+      patch update_settings_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(settings_path(tab: tab))
+      expect(@user.reload.bio).to eq('a bio about me')
+      expect(@user.reload.location).to eq('Los Angeles, CA')
+      expect(@user.reload.occupation).to eq('Teacher')
+    end
+
+    it 'updates social links on Social Links tab' do
+      # Arrange
+      tab = 'settings_social'
+      params = {
+        tab: tab,
+        user: {
+          twitter: '@coolio',
+          facebook: 'www.facebook.com/coolio',
+          instagram: '@coolio'
+        }
+      }
+
+      # Act
+      patch update_settings_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(settings_path(tab: tab))
+      expect(@user.reload.twitter).to eq('@coolio')
+      expect(@user.reload.facebook).to eq('www.facebook.com/coolio')
+      expect(@user.reload.instagram).to eq('@coolio')
+    end
+  end
+
+  describe '#update_password' do
+    before {
+      sign_in @user
+    }
+
+    let(:tab) { 'settings_change_password' }
+
+    it 'successfully updates' do
+      # Arrange
+      params = {
+        tab: tab,
+        user: {
+          current_password: @user.password,
+          password: 'password123',
+          password_confirmation: 'password123'
+        }
+      }
+
+      # Act
+      patch update_password_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(settings_path(tab: tab))
+      expect(flash[:success]).to include 'Successfully updated password.'
+    end
+
+    it 'renders flash error if current_password is incorrect' do
+      # Arrange
+      params = {
+        tab: tab,
+        user: {
+          current_password: 'wrong_password',
+          password: 'password123',
+          password_confirmation: 'password123'
+        }
+      }
+
+      # Act
+      patch update_password_path, params: params
+
+      # Assert
+      expect(response).to render_template(tab)
+      expect(flash[:error]).to include 'Current password is invalid'
+    end
+
+    it 'renders flash error if password and confirm_password do not match' do
+      # Arrange
+      params = {
+        tab: tab,
+        user: {
+          current_password: @user.password,
+          password: 'password123',
+          password_confirmation: 'password789'
+        }
+      }
+
+      # Act
+      patch update_password_path, params: params
+
+      # Assert
+      expect(response).to render_template(tab)
+      expect(flash[:error]).to include 'Password and Password Confirmation do not match'
+    end
+
+    it 'renders flash error if new password is blank' do
+      # Arrange
+      params = {
+        tab: tab,
+        user: {
+          current_password: @user.password,
+          password: '',
+          password_confirmation: 'password789'
+        }
+      }
+
+      # Act
+      patch update_password_path, params: params
+
+      # Assert
+      expect(response).to render_template(tab)
+      expect(flash[:error]).to include 'Password cannot be blank'
+    end
+
+    it 'renders flash error if new password is too short' do
+      # Arrange
+      params = {
+        tab: tab,
+        user: {
+          current_password: @user.password,
+          password: 'asdf',
+          password_confirmation: 'asdf'
+        }
+      }
+
+      # Act
+      patch update_password_path, params: params
+
+      # Assert
+      expect(response).to render_template(tab)
+      expect(flash[:error]).to include 'Password is too short (minimum is 6 characters)'
     end
   end
 end

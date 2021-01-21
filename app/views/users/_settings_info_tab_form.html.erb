@@ -1,0 +1,38 @@
+<%= form_with model: @user, url: update_settings_path, local: true, method: :patch do |form| %>
+  <%= hidden_field_tag :tab, @tab %>
+  <div class="tab-pane fade active show" id="account-info">
+    <div class="card-body pb-2">
+
+      <div class="form-group">
+        <%= form.label :bio, class: "form-label" %>
+        <%= form.text_area :bio, class: "form-control", placeholder: "Write something about yourself..." %>
+      </div>
+      <div class="form-group">
+        <%= form.label :date_of_birth, "Birthday", class: "form-label" %>
+        <div class="form-row">
+          <%= form.date_select :date_of_birth, { start_year: Date.today.year - 100, end_year: Date.today.year, order: [:month, :day, :year], with_css_classes: true, prompt: true }, class: "form-control col-4" %>
+        </div>
+      </div>
+      <div class="form-group">
+        <%= form.label :location, class: "form-label" %>
+        <%= form.text_field :location, class: "form-control", placeholder: "e.g. Los Angeles, CA" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :occupation, class: "form-label" %>
+        <%= form.text_field :occupation, class: "form-control", placeholder: "e.g. Veterinarian" %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :phone_number, class: "form-label" %>
+        <%= form.text_field :phone_number, class: "form-control"%>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="text-right my-3">
+    <%= form.submit "Save Changes", class: "btn btn-primary" %>
+  </div>
+<% end %>
