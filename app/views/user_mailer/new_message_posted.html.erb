@@ -1,0 +1,12 @@
+<body class="bg-light">
+  <div class="container">
+    <h1>Hoang Family Website</h1>
+    <div class="card my-5">
+      <div class="card-body">
+        <h1><%= @posting_user.full_name %> has posted a new message!</h1>
+        <h5 class="text-muted my-3">Subject: <%= @message.subject %></h5>
+        <%= link_to 'View Message', message_url(@message), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </div>
+</body>
