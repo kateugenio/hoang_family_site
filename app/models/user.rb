@@ -18,6 +18,8 @@ class User < ApplicationRecord
 
   attr_accessor :current_password
 
+  scope :non_admin_approved_users, -> { where(admin: false, approved: true) }
+
   def active_for_authentication?
     super && approved?
   end
