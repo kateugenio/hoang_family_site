@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   root to: 'dashboard#index'
   get 'dashboard', to: 'dashboard#index'
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   # Users Controller
   get 'users', to: 'users#index'
   post 'users/:id/approve', to: 'users#approve_as_admin', as: :approve_as_admin
