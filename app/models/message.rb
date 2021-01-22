@@ -8,8 +8,8 @@ class Message < ApplicationRecord
 
   def send_approved_users_notification_email
     # TODO: Use sidekiq/redis to deliver emails in production
-    User.where.not(id: self.user_id).non_admin_approved_users.each do |recipient_user|
-      UserMailer.new_message_posted(self.user_id, recipient_user.id, self.id).deliver
+    User.where.not(id: user_id).non_admin_approved_users.each do |recipient_user|
+      UserMailer.new_message_posted(user_id, recipient_user.id, id).deliver
     end
   end
 end
