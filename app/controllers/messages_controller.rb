@@ -28,11 +28,6 @@ class MessagesController < ApplicationController
     @message = @user.messages.new(message_params)
 
     if @message.save
-      # TODO: Use sidekiq/redis to deliver emails in production
-      User.where.not(id: @user.id).non_admin_approved_users.each do |recipient_user|
-        UserMailer.new_message_posted(@user.id, recipient_user.id, @message.id).deliver
-      end
-
       flash[:success] = "Successfully added new message."
       redirect_to messages_path
     else
