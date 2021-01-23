@@ -184,6 +184,24 @@ RSpec.describe "Users", type: :request do
       expect(@user.reload.facebook).to eq('www.facebook.com/coolio')
       expect(@user.reload.instagram).to eq('@coolio')
     end
+
+    it 'updates notificaiton options on Notifications tab' do
+      # Arrange
+      tab = 'settings_notifications'
+      params = {
+        tab: tab,
+        user: {
+          is_notified_when_new_message_posted: 0
+        }
+      }
+
+      # Act
+      patch update_settings_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(settings_path(tab: tab))
+      expect(@user.reload.is_notified_when_new_message_posted).to be false
+    end
   end
 
   describe '#update_password' do

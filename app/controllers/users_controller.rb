@@ -89,7 +89,8 @@ class UsersController < ApplicationController
       :facebook,
       :instagram,
       :twitter,
-      :linkedin
+      :linkedin,
+      :is_notified_when_new_message_posted
     )
   end
 
