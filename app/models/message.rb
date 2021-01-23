@@ -9,8 +9,8 @@ class Message < ApplicationRecord
   def send_new_message_posted_email
     # TODO: Use sidekiq/redis to deliver emails in production
     User.where.not(id: user_id)
-              .non_admin_approved_users
-              .enables_new_message_posted_notifications.each do |recipient_user|
+        .non_admin_approved_users
+        .enables_new_message_posted_notifications.each do |recipient_user|
       UserMailer.new_message_posted(user_id, recipient_user.id, id).deliver
     end
   end

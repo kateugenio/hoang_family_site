@@ -19,7 +19,7 @@ class User < ApplicationRecord
   attr_accessor :current_password
 
   scope :non_admin_approved_users, -> { where(admin: false, approved: true) }
-  scope :enables_new_message_posted_notifications, lambda {
+  scope :enables_new_message_posted_notifications, -> {
     where(is_notified_when_new_message_posted: true)
   }
 
