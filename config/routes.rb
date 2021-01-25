@@ -9,8 +9,16 @@ Rails.application.routes.draw do
   end
 
   # Users Controller
+  #
+  # Admin only
+  #
   get 'users', to: 'users#index'
   post 'users/:id/approve', to: 'users#approve_as_admin', as: :approve_as_admin
+  get 'users/admin_photo_album', to: 'users#admin_photo_album', as: :admin_photo_album
+  post 'users/create_admin_photo_album', to: 'users#create_admin_photo_album', as: :create_admin_photo_album
+  #
+  # End Admin Only
+  #
   patch 'users/attach_avatar', to: 'users#attach_avatar', as: :attach_avatar
   get 'settings', to: 'users#settings', as: :settings
   patch 'update_settings', to: 'users#update_settings', as: :update_settings

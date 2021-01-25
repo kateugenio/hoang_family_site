@@ -14,10 +14,20 @@
 
 @import "bootstrap/scss/bootstrap";
 @import "./actiontext.scss";
+@import "./now-ui-kit.scss";
 
 .avatar-fileinput {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
+}
+
+.carousel .carousel-item {
+  height: 600px;
+}
+
+.carousel-item img {
+  position: absolute;
+  height: 100vh;
 }

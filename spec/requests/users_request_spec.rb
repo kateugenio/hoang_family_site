@@ -306,4 +306,75 @@ RSpec.describe "Users", type: :request do
       expect(flash[:error]).to include 'Password is too short (minimum is 6 characters)'
     end
   end
+
+  describe '#admin_photo_album' do
+    it 'successfully renders' do
+      # Arrange
+      sign_in @admin
+
+      # Act
+      get admin_photo_album_path
+
+      # Assert
+      expect(response).to render_template(:admin_photo_album)
+    end
+
+    it 'does not allow non-admin to access page' do
+      # Arrange
+      sign_in @user
+
+      # Act
+      get admin_photo_album_path
+
+      # Assert
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to include 'You are not authorized to view this page. '\
+                                       'Please contact your administrator.'
+    end
+  end
+
+  describe '#create_admin_photo_album' do
+    it 'successfully creates' do
+      # Arrange
+      sign_in @admin
+      image = fixture_file_upload(file_fixture('avatar.png'))
+      params = {
+        photo_album: {
+          images: [image]
+        }
+      }
+
+      # Assume
+      expect(PhotoAlbum.find_by(is_admin: true)).to be nil
+
+      # Act
+      post create_admin_photo_album_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(admin_photo_album_path)
+      expect(PhotoAlbum.where(is_admin: true)).to exist
+    end
+
+    it 'does not allow non-admin to upload' do
+      # Arrange
+      sign_in @user
+      image = fixture_file_upload(file_fixture('avatar.png'))
+      params = {
+        photo_album: {
+          images: [image]
+        }
+      }
+
+      # Assume
+      expect(PhotoAlbum.find_by(is_admin: true)).to be nil
+
+      # Act
+      post create_admin_photo_album_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to include 'You are not authorized to view this page. '\
+                                       'Please contact your administrator.'
+    end
+  end
 end

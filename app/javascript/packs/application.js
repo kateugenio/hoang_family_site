@@ -11,6 +11,8 @@ require("channels")
 require("jquery")
 require("trix")
 require("@rails/actiontext")
+require("datatables.net-dt")
+require("datatables.net-bs4")
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -19,9 +21,18 @@ require("@rails/actiontext")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-$(document).ready(function() {
+$(document).on("turbolinks:load", function() {
   // Initiatlize Bootstraps Custom File Input: https://getbootstrap.com/docs/4.5/components/forms/#file-browser
   bsCustomFileInput.init();
+
+  $(".datatable").dataTable({
+      "ordering": true
+    }
+  );
+
+  $('#main-site-carousel').carousel({
+    interval: 2000
+  })
 
   // Rails will add field_with_errors class to form fields, add bootstrap's is-invalid class to highlight in red
   $('.form-control').each(function() {

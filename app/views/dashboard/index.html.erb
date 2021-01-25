@@ -1,5 +1,26 @@
 <%= bootstrap_flash %>
-<h1>Hoang Family Website</h1>
+
+<% if @photo_album %>
+  <div id="main-site-carousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <% @photo_album.images.each_with_index do |image, idx| %>
+        <div class="carousel-item <%= 'active' if idx == 0 %>">
+          <%= image_tag(image, class: "d-block w-100") %>
+        </div>
+      <% end %>
+    </div>
+    <a class="carousel-control-prev" href="#main-site-carousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#main-site-carousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+<% else %>
+  <p>If you're the Administrator for the site, please upload photos to carousel <%= link_to 'here', admin_photo_album_path %></p>
+<% end %>
 
 <% if session[:new_user_modal] == true %>
   <%= render "new_user_welcome_modal" %>
