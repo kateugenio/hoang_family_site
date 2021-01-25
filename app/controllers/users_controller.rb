@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :verify_allowed_render_tabs, only: [:update_settings, :update_password]
+  before_action :verify_user_is_admin, only: :admin_photo_album
 
   ALLOWED_RENDER_TABS = [
     'settings_general',
@@ -25,6 +26,24 @@ class UsersController < ApplicationController
 
     flash[:notice] = "#{@user.full_name} has been approved."
     redirect_to users_path(approved: false)
+  end
+
+  # GET /admin_photo_album
+  def admin_photo_album
+    @admin_photo_album = PhotoAlbum.find_by(is_admin: true)
+  end
+
+  # POST /create_admin_photo_album
+  def create_admin_photo_album
+    @user = current_user
+    @photo_album = @user.photo_albums.new(photo_album_params.merge(name: "ADMIN PHOTO ALBUM", is_admin: true))
+    if @photo_album.save
+      flash[:success] = "Successfully created ADMIN PHOTO ALBUM"
+      redirect_to admin_photo_album_path
+    else
+      flash.now[:error] = @photo_album.errors.messages.values.flatten.uniq
+      render :admin_photo_album
+    end
   end
 
   # PATCH /users/attach_avatar
@@ -98,6 +117,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:current_password, :password, :password_confirmation)
   end
 
+  def photo_album_params
+    params.require(:photo_album).permit(images: [])
+  end
+
   # Brakeman Dynamic Render issue. This should protect against a user trying to access a template
   # they shouldn't have access to.
   def verify_allowed_render_tabs
@@ -106,5 +129,14 @@ class UsersController < ApplicationController
     return if ALLOWED_RENDER_TABS.include?(@tab)
 
     redirect_to main_app.root_url, alert: 'Invalid access'
+  end
+
+  def verify_user_is_admin
+    @user = current_user
+
+    return if @user.admin?
+
+    redirect_to main_app.root_url, alert: 'You are not authorized to view this page. '\
+                                          'Please contact your administrator.'
   end
 end

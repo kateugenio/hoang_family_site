@@ -5,6 +5,6 @@ module ApplicationHelper
             else
               'default-user-avatar'
             end
-    image_tag(image, class: "d-block ui-w-30 rounded-circle", width: width, height: height)
+    image_tag(image, class: "d-block ui-w-30 rounded-circle img-raised", width: width, height: height)
   end
 end

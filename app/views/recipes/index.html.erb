@@ -1,13 +1,11 @@
-<div class="row my-5">
-  <div class="col-lg-2"></div>
-
-  <div class="col-lg-8">
+<div class="row justify-content-center my-5">
+  <div class="col-lg-10">
     <%= bootstrap_flash %>
     <h1 class="text-center">Recipes</h1>
 
     <%= link_to "Add New Recipe", new_recipe_path, class: "btn btn-primary float-right" %>
 
-    <table class="table table-sm table-hover mt-5">
+    <table class="table table-sm table-borderless table-hover mt-5 datatable">
       <thead>
         <tr>
           <th scope="col">Recipe</th>
@@ -36,6 +34,4 @@
       </tbody>
     </table>
   </div>
-
-  <div class="col-lg-2"></div>
 </div>

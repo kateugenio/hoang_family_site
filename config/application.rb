@@ -21,6 +21,8 @@ Bundler.require(*Rails.groups)
 
 module HoangFamilySite
   class Application < Rails::Application
+    APP_NAME = 'Hoang Family Website'
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
@@ -31,5 +33,8 @@ module HoangFamilySite
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Custom Webfont
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
   end
 end
