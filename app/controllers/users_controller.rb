@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :verify_allowed_render_tabs, only: [:update_settings, :update_password]
-  before_action :verify_user_is_admin, only: :admin_photo_album
+  before_action :verify_user_is_admin, only: [:admin_photo_album, :create_admin_photo_album]
 
   ALLOWED_RENDER_TABS = [
     'settings_general',
@@ -34,9 +34,11 @@ class UsersController < ApplicationController
   end
 
   # POST /create_admin_photo_album
+  # rubocop: disable Metrics/AbcSize
   def create_admin_photo_album
     @user = current_user
-    @photo_album = @user.photo_albums.new(photo_album_params.merge(name: "ADMIN PHOTO ALBUM", is_admin: true))
+    @photo_album = @user.photo_albums.new(photo_album_params.merge(name: "ADMIN PHOTO ALBUM",
+                                                                   is_admin: true))
     if @photo_album.save
       flash[:success] = "Successfully created ADMIN PHOTO ALBUM"
       redirect_to admin_photo_album_path
@@ -45,6 +47,7 @@ class UsersController < ApplicationController
       render :admin_photo_album
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   # PATCH /users/attach_avatar
   def attach_avatar
