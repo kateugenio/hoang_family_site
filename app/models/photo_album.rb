@@ -4,6 +4,8 @@ class PhotoAlbum < ApplicationRecord
 
   validates :name, presence: true
 
+  paginates_per 8
+
   def self.filtered_users(current_user)
     includes(:user).all.map { |pa| { id: pa.user.id, name: pa.user.full_name } }
                    .uniq

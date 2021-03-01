@@ -3,12 +3,12 @@ class PhotoAlbumsController < ApplicationController
 
   def index
     @photo_albums = if params[:album] == 'current_user'
-                      @user.photo_albums.all
+                      @user.photo_albums.all.page params[:page]
                     elsif params[:user]
                       user = User.find(params[:user])
-                      user.photo_albums.all
+                      user.photo_albums.all.page params[:page]
                     else
-                      PhotoAlbum.all
+                      PhotoAlbum.all.page params[:page]
                     end
     @users_with_albums = PhotoAlbum.filtered_users(@user)
   end

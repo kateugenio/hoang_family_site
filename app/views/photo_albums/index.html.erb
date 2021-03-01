@@ -20,6 +20,14 @@
       <%= link_to "Create new photo album", new_photo_album_path, class: "btn btn-primary mb-3" %>
     </div>
 
+    <hr>
+
+    <div class="row">
+      <div class="col">
+        <div class="float-right"><%= paginate @photo_albums %></div>
+      </div>
+    </div>
+
     <div class="row">
       <% @photo_albums.each do |photo_album| %>
         <div class="col-lg-3">
@@ -43,5 +51,14 @@
         </div>
       <% end %>
     </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="float-right"><%= paginate @photo_albums %></div>
+      </div>
+    </div>
+
+    <hr>
+
   </div>
 </div>
