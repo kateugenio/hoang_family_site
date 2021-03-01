@@ -47,14 +47,12 @@
           <%= form_with model: @recipe.comments, url: recipe_comments_path(@recipe) do |form| %>
             <%= form.hidden_field :user_id, value: @user.id %>
             <div class="form-group">
-              <%= form.text_area :comment, class: "form-control", placeholder: "Add new comment..." %>
+              <%= form.text_area :comment, class: "form-control", placeholder: "Add new comment here..." %>
             </div>
             <div class="text-right mb-3">
-              <%= form.submit "Add comment", class: "btn btn-primary" %>
+              <%= form.submit "Add", class: "btn btn-primary" %>
             </div>
           <% end %>
-
-          <hr>
 
           <div id="recipe-comments">
             <div id="recipe-comment">

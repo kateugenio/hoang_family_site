@@ -1,19 +1,15 @@
-<div class="card card-white post my-4">
-  <div class="post-heading">
-    <div class="float-left image">
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex justify-content-start mb-3">
       <%= default_or_uploaded_avatar(comment.user, 70, 70) %>
-    </div>
-    <div class="float-left meta">
-      <div class="title h5">
+      <div class="ml-3">
         <p><strong><%= comment.user.full_name %></strong> made a post.</p>
+        <h6 class="text-muted time font-weight-lighter"><%= time_ago_in_words(comment.created_at) %> ago</h6>
       </div>
-      <h6 class="text-muted time font-weight-lighter"><%= time_ago_in_words(comment.created_at) %> ago</h6>
     </div>
-  </div> 
-  <div class="post-description mt-2"> 
-    <p class="font-weight-light"><%= comment.comment %></p>
+    <p class="card-text"><%= comment.comment %></p>
+    <% if can? :destroy, comment %>
+      <%= link_to "Delete Comment", recipe_comment_destroy_path(@recipe, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "font-weight-light text-danger", style: "font-size: 10px" %>
+    <% end %>
   </div>
-  <% if can? :destroy, comment %>
-    <%= link_to "Delete Comment", recipe_comment_destroy_path(@recipe, comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "font-weight-light text-danger", style: "font-size: 10px" %>
-  <% end %>
 </div>
