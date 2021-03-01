@@ -36,5 +36,9 @@ module HoangFamilySite
 
     # Custom Webfont
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
+    # Don't replace existing ActiveStorage blob images if attaching to existing object
+    # https://stackoverflow.com/questions/58282845/rails-6-active-storage-could-not-find-or-build-blob-expected-attachable-got
+    config.active_storage.replace_on_assign_to_many = false
   end
 end
