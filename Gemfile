@@ -38,6 +38,9 @@ gem 'cancancan'
 # Search
 gem 'ransack'
 
+# Pagination
+gem 'kaminari'
+
 # Use bootstrap in Emails
 gem 'bootstrap-email'
 
