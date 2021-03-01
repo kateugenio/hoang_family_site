@@ -5,19 +5,36 @@
     <p>These images will be displayed on the Carousel on the <%= link_to 'Homepage', root_path %>.</p>
 
     <% if @admin_photo_album %>
-      <section id="gallery" class="gallery">
+      <section id="gallery" class="gallery mb-5">
         <div class="container">
           <div class="row gallery-container">
             <% @admin_photo_album.images.each do |image| %>
               <div class="col-lg-4 col-md-6 gallery-item">
                 <div class="gallery-wrap">
                   <%= image_tag(image, class: "img-fluid") %>
+                  <%= link_to 'Delete Image', destroy_photo_from_admin_photo_album_path(image), method: :delete %>
                 </div>
               </div>
             <% end %>
           </div>
         </div>
       </section>
+
+      <hr>
+
+      <%= form_with model: @admin_photo_album, url: update_admin_photo_album_path, local: true do |form| %>
+        <div class="form-group mb-4">
+          <div class="custom-file">
+            <%= form.file_field :images, multiple: true, direct_upload: true, class: "custom-file-input", id: "customFile" %>
+            <label class="custom-file-label" for="customFile">Upload More Photo. Select multiple.</label>
+          </div>
+        </div>
+
+        <div class="mt-3 text-right">
+          <%= form.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
     <% else %>
       <%= form_with model: @user.photo_albums.new, url: create_admin_photo_album_path, local: true do |form| %>
         <div class="form-group mb-4">

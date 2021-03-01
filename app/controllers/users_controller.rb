@@ -49,6 +49,26 @@ class UsersController < ApplicationController
   end
   # rubocop: enable Metrics/AbcSize
 
+  def update_admin_photo_album
+    @photo_album = PhotoAlbum.find_by(is_admin: true)
+
+    if @photo_album.update(photo_album_params)
+      flash[:success] = "Successfully updated #{@photo_album.name}"
+      redirect_to admin_photo_album_path
+    else
+      flash.now[:error] = @photo_album.errors.messages.values.flatten.uniq
+      render :admin_photo_album_path
+    end
+  end
+
+  def destroy_photo_from_admin_photo_album
+    @admin_photo_album = PhotoAlbum.find_by(is_admin: true)
+    @image = @admin_photo_album.images.find(params[:image_id])
+    @image.purge
+
+    redirect_to admin_photo_album_path
+  end
+
   # PATCH /users/attach_avatar
   def attach_avatar
     current_user.update(user_params)
