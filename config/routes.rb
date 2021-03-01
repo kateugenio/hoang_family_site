@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post 'users/:id/approve', to: 'users#approve_as_admin', as: :approve_as_admin
   get 'users/admin_photo_album', to: 'users#admin_photo_album', as: :admin_photo_album
   post 'users/create_admin_photo_album', to: 'users#create_admin_photo_album', as: :create_admin_photo_album
+  patch 'users/update_admin_photo_album', to: 'users#update_admin_photo_album', as: :update_admin_photo_album
+  delete 'users/destroy_photo_from_admin_photo_album/:image_id', to: 'users#destroy_photo_from_admin_photo_album', as: :destroy_photo_from_admin_photo_album
   #
   # End Admin Only
   #
