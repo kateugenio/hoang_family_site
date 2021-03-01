@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   # GET /messages
   def index
     @q = Message.includes(:comments, :user).all.order(created_at: :desc).ransack(params[:q])
-    @messages = @q.result(distinct: true)
+    @messages = @q.result(distinct: true).page params[:page]
   end
 
   # GET /messages/new

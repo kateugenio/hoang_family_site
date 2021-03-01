@@ -14,6 +14,13 @@
           <% end %>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="float-right"><%= paginate @messages %></div>
+        </div>
+      </div>
+
       <div class="card mb-3">
         <div class="card-header pl-0 pr-0">
           <div class="row no-gutters w-100 align-items-center">
@@ -51,15 +58,11 @@
         <% end %>
       </div>
 
-      <nav>
-        <ul class="pagination mb-5">
-          <li class="page-item disabled"><a class="page-link" href="javascript:void(0)" data-abc="true">«</a></li>
-          <li class="page-item active"><a class="page-link" href="javascript:void(0)" data-abc="true">1</a></li>
-          <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">2</a></li>
-          <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">3</a></li>
-          <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">»</a></li>
-        </ul>
-      </nav>
+      <div class="row">
+        <div class="col">
+          <div class="float-right"><%= paginate @messages %></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
