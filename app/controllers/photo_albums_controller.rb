@@ -18,6 +18,8 @@ class PhotoAlbumsController < ApplicationController
   end
 
   def edit
+    @photo_album = PhotoAlbum.find(params[:id])
+    @user = @user.admin? ? @photo_album.user : current_user
     @photo_album = @user.photo_albums.find(params[:id])
   end
 
