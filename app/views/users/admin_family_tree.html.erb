@@ -1,0 +1,32 @@
+<div class="row justify-content-center my-5">
+  <div class="col-lg-10">
+    <%= bootstrap_flash %>
+    <h1>Family Tree Upload</h1>
+
+    <% if @admin_family_tree %>
+      <p>This image is displayed on the <%= link_to 'Family tree page', family_tree_path %>.</p>
+      <% @admin_family_tree.images.each do |image| %>
+        <%= image_tag(image, class: "img-fluid") %>
+        <%= link_to 'Delete Image', destroy_family_tree_photo_path, method: :delete %>
+      <% end %>
+    <% else %>
+      <p>No family tree photo uploaded. Please upload a photo below.</p>
+      <%= form_with model: @user.photo_albums.new, url: create_admin_family_tree_path, local: true do |form| %>
+        <div class="form-group mb-4">
+          <div class="custom-file">
+            <%= form.file_field :images, multiple: true, direct_upload: true, class: "custom-file-input", id: "customFile" %>
+            <label class="custom-file-label" for="customFile">Upload Photo</label>
+            <small class="text-muted">
+              You can select multiple photos from your computer by selecting the Shift key (Windows) or Command key (Mac)
+            </small>
+          </div>
+        </div>
+
+        <div class="mt-3 float-right">
+          <%= link_to "Cancel", root_path, class: "btn btn-secondary mr-2" %>
+          <%= form.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
