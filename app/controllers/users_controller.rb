@@ -73,11 +73,13 @@ class UsersController < ApplicationController
 
   # GET /admin_family_tree
   def admin_family_tree
+    authorize! :tree, :family
     @admin_family_tree = PhotoAlbum.find_by(is_admin: true, admin_type: 'family_tree')
   end
 
   # POST /create_admin_photo_album
   def create_admin_family_tree
+    authorize! :tree, :family
     @user = current_user
     @family_tree = @user.photo_albums.new(photo_album_params.merge(name: "FAMILY TREE",
                                                                    is_admin: true,
@@ -93,6 +95,7 @@ class UsersController < ApplicationController
 
   # DELETE /family_tree_photo
   def destroy_family_tree_photo
+    authorize! :tree, :family
     @family_tree_photo = PhotoAlbum.find_by(is_admin: true, admin_type: 'family_tree')
     @family_tree_photo.destroy
 
