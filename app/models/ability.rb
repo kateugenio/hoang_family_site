@@ -10,6 +10,7 @@ class Ability
 
     if @user.admin?
       can :manage, :all
+      can :tree, :family
     else
       can [:update, :destroy], Recipe, user_id: @user.id
       can [:destroy], Comment, user_id: @user.id

@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   post 'users/create_admin_photo_album', to: 'users#create_admin_photo_album', as: :create_admin_photo_album
   patch 'users/update_admin_photo_album', to: 'users#update_admin_photo_album', as: :update_admin_photo_album
   delete 'users/destroy_photo_from_admin_photo_album/:image_id', to: 'users#destroy_photo_from_admin_photo_album', as: :destroy_photo_from_admin_photo_album
+  get 'users/admin_family_tree', to: 'users#admin_family_tree', as: :admin_family_tree
+  post 'users/create_admin_family_tree', to: 'users#create_admin_family_tree', as: :create_admin_family_tree
+  delete 'users/family_tree_photo', to: 'users#destroy_family_tree_photo', as: :destroy_family_tree_photo
+
   #
   # End Admin Only
   #
@@ -40,4 +44,7 @@ Rails.application.routes.draw do
     post '/comments', to: 'message_comments#create'
     delete '/comments/:id', to: 'message_comments#destroy', as: :comment_destroy
   end
+
+  # Family Controller
+  get '/family/tree', to: 'family#tree', as: :family_tree
 end
