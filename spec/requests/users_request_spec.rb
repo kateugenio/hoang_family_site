@@ -345,14 +345,14 @@ RSpec.describe "Users", type: :request do
       }
 
       # Assume
-      expect(PhotoAlbum.find_by(is_admin: true)).to be nil
+      expect(PhotoAlbum.find_by(is_admin: true, admin_type: 'home_page_carousel')).to be nil
 
       # Act
       post create_admin_photo_album_path, params: params
 
       # Assert
       expect(response).to redirect_to(admin_photo_album_path)
-      expect(PhotoAlbum.where(is_admin: true)).to exist
+      expect(PhotoAlbum.where(is_admin: true, admin_type: 'home_page_carousel')).to exist
     end
 
     it 'does not allow non-admin to upload' do
@@ -366,10 +366,81 @@ RSpec.describe "Users", type: :request do
       }
 
       # Assume
-      expect(PhotoAlbum.find_by(is_admin: true)).to be nil
+      expect(PhotoAlbum.find_by(is_admin: true, admin_type: 'home_page_carousel')).to be nil
 
       # Act
       post create_admin_photo_album_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to include 'You are not authorized to view this page. '\
+                                       'Please contact your administrator.'
+    end
+  end
+
+  describe '#admin_family_tree' do
+    it 'successfully renders' do
+      # Arrange
+      sign_in @admin
+
+      # Act
+      get admin_family_tree_path
+
+      # Assert
+      expect(response).to render_template(:admin_family_tree)
+    end
+
+    it 'does not allow non-admin to access page' do
+      # Arrange
+      sign_in @user
+
+      # Act
+      get admin_family_tree_path
+
+      # Assert
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to include 'You are not authorized to view this page. '\
+                                       'Please contact your administrator.'
+    end
+  end
+
+  describe '#create_admin_family_tree' do
+    it 'successfully creates' do
+      # Arrange
+      sign_in @admin
+      image = fixture_file_upload(file_fixture('avatar.png'))
+      params = {
+        photo_album: {
+          images: [image]
+        }
+      }
+
+      # Assume
+      expect(PhotoAlbum.find_by(is_admin: true, admin_type: 'family_tree')).to be nil
+
+      # Act
+      post create_admin_family_tree_path, params: params
+
+      # Assert
+      expect(response).to redirect_to(admin_family_tree_path)
+      expect(PhotoAlbum.where(is_admin: true, admin_type: 'family_tree')).to exist
+    end
+
+    it 'does not allow non-admin to upload' do
+      # Arrange
+      sign_in @user
+      image = fixture_file_upload(file_fixture('avatar.png'))
+      params = {
+        photo_album: {
+          images: [image]
+        }
+      }
+
+      # Assume
+      expect(PhotoAlbum.find_by(is_admin: true, admin_type: 'family_tree')).to be nil
+
+      # Act
+      post create_admin_family_tree_path, params: params
 
       # Assert
       expect(response).to redirect_to(root_path)
