@@ -7,7 +7,7 @@ Hoang Family Website
 ## Setup
 
 ### Environment Requirements
-* Rails 6.0.2
+* Rails 6.0.3
 * Ruby 2.6.6
 * PostgreSQL 10.3
 ```
