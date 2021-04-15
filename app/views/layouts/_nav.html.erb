@@ -15,9 +15,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "Family Tree", family_tree_path, class: "dropdown-item" %>
+            <%= link_to "Bios", family_bios_path, class: "dropdown-item" %>
             <a class="dropdown-item" href="#">Our History</a>
-            <a class="dropdown-item" href="#">Bios</a>
-            <a class="dropdown-item" href="#">Pets</a>
           </div>
         </li>
         <li class="nav-item">
@@ -45,7 +44,7 @@
 
       <% if current_user %>
         <div class="d-flex justify-content-between ml-auto">
-          <div class="mt-2"><%= default_or_uploaded_avatar(current_user, 40, 40) %></div>
+          <div class="mt-2"><%= rounded_avatar(current_user, 40, 40) %></div>
           <div class="btn-group ml-3">
             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= current_user.full_name %>

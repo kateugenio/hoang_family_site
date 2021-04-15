@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'dashboard#index'
   get 'dashboard', to: 'dashboard#index'
+  get 'dashboard/skip_profile_photo_upload', to: 'dashboard#skip_profile_photo_upload', as: :skip_profile_photo_upload
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
@@ -47,4 +48,5 @@ Rails.application.routes.draw do
 
   # Family Controller
   get '/family/tree', to: 'family#tree', as: :family_tree
+  get '/family/bios', to: 'family#bios', as: :family_bios
 end
