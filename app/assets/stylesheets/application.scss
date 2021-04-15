@@ -15,6 +15,8 @@
 @import "bootstrap/scss/bootstrap";
 @import "./actiontext.scss";
 @import "./now-ui-kit.scss";
+@import "font-awesome";
+@import '**/*';
 
 .avatar-fileinput {
   position: absolute;
@@ -30,4 +32,15 @@
 .carousel-item img {
   position: absolute;
   height: 100vh;
+}
+
+section {
+    padding: 60px 0;
+}
+
+section .section-title {
+    text-align: center;
+    color: #007b5e;
+    margin-bottom: 50px;
+    text-transform: uppercase;
 }
