@@ -3,7 +3,7 @@
   <div class="tab-pane fade active show" id="account-general">
 
   <div class="card-body media align-items-center">
-    <%= default_or_uploaded_avatar(current_user, 200, 200) %>
+    <%= rounded_avatar(current_user, 200, 200) %>
     <div class="media-body ml-4">
       <div class="custom-file">
         <%= form.file_field :avatar, class: "custom-file-input", id: "customFile" %>

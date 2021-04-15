@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
     <div class="d-flex justify-content-start mb-3">
-      <%= default_or_uploaded_avatar(comment.user, 70, 70) %>
+      <%= rounded_avatar(comment.user, 70, 70) %>
       <div class="ml-3">
         <p><strong><%= comment.user.full_name %></strong> made a post.</p>
         <h6 class="text-muted time font-weight-lighter"><%= time_ago_in_words(comment.created_at) %> ago</h6>
