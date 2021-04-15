@@ -1,5 +1,21 @@
 <%= bootstrap_flash %>
 
+<% unless @user.has_at_least_one_bio_attribute_present? %>
+  <div class="alert alert-warning" role="alert">
+    <div class="container">
+      <div class="alert-icon">
+        <i class="now-ui-icons users_single-02"></i>
+      </div>
+      Your bio awaits, add your information on the <%= link_to 'info tab', settings_path(tab: "settings_info") %> and <%= link_to 'social tab', settings_path(tab: "settings_social") %> so your family can see it on the <%= link_to 'Bios', family_bios_path %> page.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">
+          <i class="now-ui-icons ui-1_simple-remove"></i>
+        </span>
+      </button>
+    </div>
+  </div>
+<% end %>
+
 <% if @photo_album %>
   <div id="main-site-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
@@ -22,6 +38,4 @@
   <p>If you're the Administrator for the site, please upload photos to carousel <%= link_to 'here', admin_photo_album_path %></p>
 <% end %>
 
-<% if session[:new_user_modal] == true %>
-  <%= render "new_user_welcome_modal" %>
-<% end %>
+<%= render_upload_photo_modal(@user) %>

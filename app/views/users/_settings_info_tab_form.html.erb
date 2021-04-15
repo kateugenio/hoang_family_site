@@ -1,3 +1,7 @@
+<div class="alert alert-info ml-3" role="alert">
+  Fill out your info below so your family can view this on the <%= link_to 'Bios', family_bios_path %> page!
+</div>
+
 <%= form_with model: @user, url: update_settings_path, local: true, method: :patch do |form| %>
   <%= hidden_field_tag :tab, @tab %>
   <div class="tab-pane fade active show" id="account-info">
@@ -25,7 +29,7 @@
 
       <div class="form-group">
         <%= form.label :phone_number, class: "form-label" %>
-        <%= form.text_field :phone_number, class: "form-control"%>
+        <%= form.text_field :phone_number, class: "form-control", placeholder: "e.g. (323) 123-4567" %>
       </div>
 
 

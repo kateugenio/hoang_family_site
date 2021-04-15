@@ -1,4 +1,4 @@
-<div class="modal fade" id="welcome-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="welcome-modal" tabindex="-1" aria-labelledby="welcome-modal" aria-hidden="true">
   <div class="modal-dialog">
     <%= form_with model: @user, url: attach_avatar_path, method: :patch do |form| %>
       <div class="modal-content">
@@ -9,10 +9,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <p>Upload a profile photo</p>
+          <p>Please upload a profile photo</p>
           <small>You can always do this later from your Settings page</small>
           
-          <div class="form-group my-5">
+          <div class="form-group my-2">
             <div class="custom-file">
               <%= form.file_field :avatar, class: "custom-file-input", id: "customFile" %>
               <label class="custom-file-label" for="customFile">Choose file</label>
@@ -21,7 +21,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Skip, I'll do this later</button>
+          <%= link_to "Skip, I'll do this later", skip_profile_photo_upload_path, remote: true, class: "btn btn-secondary" %>
           <%= form.submit "Upload", class: "btn btn-primary" %>
         </div>
       </div>
