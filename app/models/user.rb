@@ -38,4 +38,25 @@ class User < ApplicationRecord
   def full_name
     [first_name, last_name].join(' ').squish
   end
+
+  def facebook?
+    facebook.present?
+  end
+
+  def instagram?
+    instagram.present?
+  end
+
+  def twitter?
+    twitter.present?
+  end
+
+  def linkedin?
+    linkedin.present?
+  end
+
+  def has_at_least_one_bio_attribute_present?
+    bio.present? || date_of_birth.present? || location.present? || occupation.present? ||
+      phone_number.present? || facebook? || instagram? || twitter? || linkedin?
+  end
 end
