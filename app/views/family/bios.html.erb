@@ -1,0 +1,86 @@
+<div class="row justify-content-center my-5">
+  <div class="col">
+    <%= bootstrap_flash %>
+
+    <div class="container">
+      <h5 class="section-title h1">FAMILY BIOS</h5>
+      <div class="row">
+        <% @family_members.each do |member| %>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="image-flip" >
+              <div class="mainflip flip-0">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p>
+                        <%= image_tag(default_or_uploaded_avatar(member), class: "img-fluid") %>
+                      </p>
+                      <h4 class="card-title"><%= member.full_name %></h4>
+                      <p class="card-text"><%= member.bio %></p>
+                      <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="backside">
+                  <div class="card">
+                    <div class="card-body text-center mt-4">
+                      <h4 class="card-title"><%= member.full_name %></h4>
+                      <p class="card-text">
+                        My birthday: <%= member.date_of_birth&.strftime("%m/%d/%Y") %>
+                      </p>
+                      <p class="card-text">
+                        Currently living in: <%= member.location %>
+                      </p>
+                      <p class="card-text">
+                        I am currently a: <%= member.occupation %>
+                      </p>
+                      <p class="card-text">
+                        Reach me at: <%= number_to_phone(member.phone_number, area_code: true) %>
+                      </p>
+                      <ul class="list-inline">
+                        <% if member.facebook? %>
+                          <li class="list-inline-item">
+                            <a class="social-icon text-xs-center" target="_blank" href="<%= external_site_url(member.facebook) %>">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                          </li>
+                        <% end %>
+
+                        <% if member.twitter? %>
+                          <li class="list-inline-item">
+                            <a class="social-icon text-xs-center" target="_blank" href="https://www.twitter.com/<%= removed_social_media_at_sign(member.twitter) %>">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                          </li>
+                        <% end %>
+
+                        <% if member.instagram? %>
+                          <li class="list-inline-item">
+                            <a class="social-icon text-xs-center" target="_blank" href="https://www.instagram.com/<%= removed_social_media_at_sign(member.instagram) %>">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                          </li>
+                        <% end %>
+
+                        <% if member.linkedin? %>
+                          <li class="list-inline-item">
+                            <a class="social-icon text-xs-center" target="_blank" href="<%= external_site_url(member.linkedin) %>">
+                                <i class="fa fa-linkedin"></i>
+                            </a>
+                          </li>
+                        <% end %>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+</div>
