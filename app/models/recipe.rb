@@ -1,3 +1,5 @@
+# Recipes of all kinds
+# @param test_param [String] optional, test comment here
 class Recipe < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy

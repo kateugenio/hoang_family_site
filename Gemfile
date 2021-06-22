@@ -47,6 +47,8 @@ gem 'bootstrap-email'
 # FontAwesome Rails
 gem "font-awesome-rails"
 
+gem 'yard'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
