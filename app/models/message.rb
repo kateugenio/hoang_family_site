@@ -11,7 +11,7 @@ class Message < ApplicationRecord
     User.where.not(id: user_id)
         .non_admin_approved_users
         .enables_new_message_posted_notifications.each do |recipient_user|
-      UserMailer.new_message_posted(user_id, recipient_user.id, id).deliver
+      UserMailer.delay.new_message_posted(user_id, recipient_user.id, id)
     end
   end
 end

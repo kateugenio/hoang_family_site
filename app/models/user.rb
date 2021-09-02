@@ -32,7 +32,7 @@ class User < ApplicationRecord
   end
 
   def send_admin_mail
-    AdminMailer.new_user_waiting_for_approval(email).deliver
+    AdminMailer.delay.new_user_waiting_for_approval(email)
   end
 
   def full_name
