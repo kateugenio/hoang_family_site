@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions', passwords: 'users/passwords', registrations: 'users/registrations' }
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -49,4 +51,8 @@ Rails.application.routes.draw do
   # Family Controller
   get '/family/tree', to: 'family#tree', as: :family_tree
   get '/family/bios', to: 'family#bios', as: :family_bios
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
