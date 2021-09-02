@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'support/factory_bot'
 require 'database_cleaner/active_record'
 require 'shoulda/matchers'
+require 'sidekiq/testing' 
 # Add additional requires below this line. Rails is not loaded until this point!
 
 Shoulda::Matchers.configure do |config|
